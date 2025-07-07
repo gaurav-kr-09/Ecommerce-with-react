@@ -5,9 +5,10 @@ export function CheckoutPage() {
   return (
     <>
       <title>Checkout</title>
+      <link rel="shortcut icon" href="cart-favicon.png" type="image/x-icon" />
 
       <CheckoutHeader />
-      
+
       <div className="checkout-page">
         <div className="page-title">Review your order</div>
 

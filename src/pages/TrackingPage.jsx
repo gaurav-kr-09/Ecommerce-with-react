@@ -4,6 +4,7 @@ export function TrackingPage() {
   return (
     <>
       <title>Tracking</title>
+      <link rel="shortcut icon" href="tracking-favicon.png" type="image/x-icon" />
 
       <Header />
 
