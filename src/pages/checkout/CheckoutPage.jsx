@@ -26,7 +26,6 @@ export function CheckoutPage({ cart }) {
     <>
       <title>Checkout</title>
       <link rel="shortcut icon" href="cart-favicon.png" type="image/x-icon" />
-
       <CheckoutHeader />
 
       <div className="checkout-page">
@@ -34,7 +33,6 @@ export function CheckoutPage({ cart }) {
 
         <div className="checkout-grid">
           <OrderSummary cart={cart} deliveryOptions={deliveryOptions} />
-
           <PaymentSummary paymentSummary={paymentSummary} />
         </div>
       </div>
