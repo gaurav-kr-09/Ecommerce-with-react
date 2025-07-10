@@ -8,13 +8,19 @@ import './HomePage.css';
 export function HomePage({ cart }) {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    axios.get('/api/products')
-      .then((response) => {
-        setProducts(response.data);
-      });
-  }, []);
+  // useEffect(async () => {
+  //   const response = axios.get('/api/products');
+  //   setProducts(response.data);
+  // }, []); //useeffect me inner function should not return a promise. it can only return nothing or a cleanup function.
 
+  useEffect(() => {
+    const getHomeData = async () => {
+      const response = await axios.get('/api/products');
+      setProducts(response.data);
+    };
+
+    getHomeData();
+  }, []);
 
   return (
     <>

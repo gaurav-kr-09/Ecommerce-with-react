@@ -14,12 +14,12 @@ function App() {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/cart-items?expand=product') //isme jo last me '?expand=product' add kiye hai usko query parameter kahte hai.
-    //query parameter k help se hamlog apne request me additional info add kar sakte hai.
+    const fetchAppdata = async () => {
+      const response = await axios.get('/api/cart-items?expand=product')
+      setCart(response.data);
+    };
 
-      .then((response) => {
-        setCart(response.data);
-      });
+    fetchAppdata();
   }, []);
 
   return (
