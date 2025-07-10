@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     axios.get('/api/cart-items?expand=product') //isme jo last me '?expand=product' add kiye hai usko query parameter kahte hai.
     //query parameter k help se hamlog apne request me additional info add kar sakte hai.
-    
+
       .then((response) => {
         setCart(response.data);
       });
@@ -26,7 +26,7 @@ function App() {
     <Routes>
       <Route index element={<HomePage cart={cart} />} />
       <Route path="checkout" element={<CheckoutPage cart={cart} />} />
-      <Route path="orders" element={<OrdersPage />} />
+      <Route path="orders" element={<OrdersPage cart={cart} />} />
       <Route path="tracking" element={<TrackingPage />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
