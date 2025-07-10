@@ -14,7 +14,9 @@ function App() {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/cart-items')
+    axios.get('/api/cart-items?expand=product') //isme jo last me '?expand=product' add kiye hai usko query parameter kahte hai.
+    //query parameter k help se hamlog apne request me additional info add kar sakte hai.
+    
       .then((response) => {
         setCart(response.data);
       });
