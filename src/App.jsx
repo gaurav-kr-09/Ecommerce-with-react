@@ -10,6 +10,8 @@ import { PageNotFound } from "./pages/PageError/PageNotFound";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+window.axios = axios;
+
 function App() {
   const [cart, setCart] = useState([]);
 
