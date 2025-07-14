@@ -1,4 +1,4 @@
-import { it, expect, describe, vi } from 'vitest';
+import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Product } from './product';
@@ -7,20 +7,28 @@ import axios from 'axios';
 vi.mock('axios'); //isse axios ka fake version ban jayega and ye backend ko contact nahi karega isse hamara data setup kharab nahi hoga.
 
 describe('Product component', () => {
-  it('Displays the product details correctly', () => {
-    const product = {
-      id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-      image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-      name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-      rating: {
-        stars: 4.5,
-        count: 87
-      },
-      priceCents: 1090,
-      keywords: ["socks", "sports", "apparel"]
-    };
+  let product;
 
-    const loadCart = vi.fn(); //it is a fake function called mock
+  let loadCart; //it is a fake function called mock.
+
+  beforeEach(() => {
+    product = {
+    id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+    image: "images/products/athletic-cotton-socks-6-pairs.jpg",
+    name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
+    rating: {
+      stars: 4.5,
+      count: 87
+    },
+    priceCents: 1090,
+    keywords: ["socks", "sports", "apparel"]
+  };
+
+  loadCart = vi.fn();
+  })
+
+  it('Displays the product details correctly', () => {
+
     render(<Product product={product} loadCart={loadCart} />);
 
     expect(
@@ -31,11 +39,11 @@ describe('Product component', () => {
       screen.getByText('$10.90')
     ).toBeInTheDocument();
 
-    expect (
+    expect(
       screen.getByTestId('product-image')
     ).toHaveAttribute('src', 'images/products/athletic-cotton-socks-6-pairs.jpg');
 
-    expect (
+    expect(
       screen.getByTestId('product-rating-stars-image')
     ).toHaveAttribute('src', 'images/ratings/rating-45.png');
 
@@ -45,19 +53,6 @@ describe('Product component', () => {
   });
 
   it('Adds a product to the cart', async () => {
-    const product = {
-      id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-      image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-      name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-      rating: {
-        stars: 4.5,
-        count: 87
-      },
-      priceCents: 1090,
-      keywords: ["socks", "sports", "apparel"]
-    };
-
-    const loadCart = vi.fn(); 
     render(<Product product={product} loadCart={loadCart} />);
 
     const user = userEvent.setup();
@@ -72,5 +67,6 @@ describe('Product component', () => {
       }
     );
     expect(loadCart).toHaveBeenCalled();
-  })
+  });
+
 })
