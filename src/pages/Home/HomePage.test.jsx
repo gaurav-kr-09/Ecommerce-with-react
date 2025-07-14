@@ -79,22 +79,51 @@ describe('HomePage component', () => {
 
     const productContainers = await screen.findAllByTestId('product-container')
 
+    const quantitySelector1 = within(productContainers[0]).getByTestId('product-quantity-selector');
+    await user.selectOptions(quantitySelector1, '2');
+
     const addToCartButton1 =  within(productContainers[0]).getByTestId('add-to-cart-button');
     await user.click(addToCartButton1);
+
+    const quantitySelector2 = within(productContainers[1]).getByTestId('product-quantity-selector');
+    await user.selectOptions(quantitySelector2, '3');
 
     const addToCartButton2 =  within(productContainers[1]).getByTestId('add-to-cart-button');
     await user.click(addToCartButton2);
 
     expect(axios.post).toHaveBeenNthCalledWith(1, '/api/cart-items', {
       productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-      quantity: 1
+      quantity: 2
     });
 
     expect(axios.post).toHaveBeenNthCalledWith(2, '/api/cart-items', {
       productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-      quantity: 1
+      quantity: 3
     });
     expect(loadCart).toHaveBeenCalledTimes(2);
 
   })
 });
+
+
+// it('Selects a quantity', async () => {
+//     render(<Product product={product} loadCart={loadCart} />);
+
+//     const quantitySelector = screen.getByTestId('product-quantity-selector');
+//     expect(quantitySelector).toHaveValue('1');
+
+//     await user.selectOptions(quantitySelector, '3');
+//     expect(quantitySelector).toHaveValue('3');
+
+//     const addToCartButton = screen.getByTestId('add-to-cart-button');
+//     await user.click(addToCartButton);
+
+//     expect(axios.post).toHaveBeenCalledWith(
+//       '/api/cart-items',
+//       {
+//         productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+//         quantity: 3
+//       }
+//     );
+//     expect(loadCart).toHaveBeenCalled();
+//   });
